@@ -1,0 +1,91 @@
+class Customer:
+    def __init__(self, cid, cname, acc_no, phone, emailID, balance):
+        self.cid = cid
+        self.cname = cname
+        self.acc_no = acc_no
+        self.phone = phone
+        self.emailID = emailID
+        self.balance = balance
+        self.credit_card = []
+        self.debit_card = []
+
+class Card:
+    def __init__(self, type, card_no, cvv, expiry_date, balance):
+        self.type = type
+        self.card_no = card_no
+        self.cvv = cvv
+        self.expiry_date = expiry_date
+        self.balance = balance
+
+customers = []
+cards = []
+
+while True:
+    print("1. Create customer objects")
+    print("2. Create Card objects")
+    print("3. Transfer funds between customer objects")
+    print("4. Assign card objects to customer objects")
+    print("5. Display Customer Info")
+    print("6. Display Card Info")
+    print("7. Commit")
+    print("8. Exit")
+
+    choice = input("Enter choice: ")
+
+    if choice == "1":
+        cid = input("Enter Customer ID: ")
+        cname = input("Enter Customer Name: ")
+        acc_no = input("Enter Account Number: ")
+        phone = input("Enter Phone: ")
+        emailID = input("Enter Email ID: ")
+        balance = float(input("Enter Balance: "))
+        customers.append(Customer(cid, cname, acc_no, phone, emailID, balance))
+
+    elif choice == "2":
+        type = input("Enter Card Type: ")
+        card_no = input("Enter Card Number: ")
+        cvv = input("Enter CVV: ")
+        expiry_date = input("Enter Expiry Date: ")
+        balance = float(input("Enter Balance: "))
+        cards.append(Card(type, card_no, cvv, expiry_date, balance))
+
+    elif choice == "3":
+        from_id = input("Enter Sender Customer ID: ")
+        to_id = input("Enter Receiver Customer ID: ")
+        amount = float(input("Enter Amount: "))
+        sender = None
+        receiver = None
+        for c in customers:
+            if c.cid == from_id:
+                sender = c
+            if c.cid == to_id:
+                receiver = c
+        if sender and receiver and sender.balance >= amount:
+            sender.balance -= amount
+            receiver.balance += amount
+
+    elif choice == "4":
+        cid = input("Enter Customer ID: ")
+        card_no = input("Enter Card Number: ")
+        for c in customers:
+            if c.cid == cid:
+                for card in cards:
+                    if card.card_no == card_no:
+                        if card.type == "credit":
+                            c.credit_card.append(card)
+                        else:
+                            c.debit_card.append(card)
+
+    elif choice == "5":
+        for c in customers:
+            print(c.cid, c.cname, c.acc_no, c.phone, c.emailID, c.balance)
+
+    elif choice == "6":
+        for card in cards:
+            print(card.type, card.card_no, card.cvv, card.expiry_date, card.balance)
+
+    elif choice == "7":
+        pass
+
+    elif choice == "8":
+        break
