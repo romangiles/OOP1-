@@ -1,0 +1,77 @@
+myEmployees = {}
+
+def calculate_pay(basic, allowance, deductions, taxes):
+    gross = basic + allowance
+    net = gross - deductions - taxes
+    return gross, net
+
+def add_employee():
+    name = input("Enter Employee Name: ")
+    basic = float(input("Enter Basic Pay: "))
+    allowance = float(input("Enter Allowance: "))
+    deductions = float(input("Enter Deductions: "))
+    taxes = float(input("Enter Taxes: "))
+
+    gross, net = calculate_pay(basic, allowance, deductions, taxes)
+
+    myEmployees[name] = {
+        "BasicPay": basic,
+        "Allowance": allowance,
+        "Deductions": deductions,
+        "Taxes": taxes,
+        "GrossPay": gross,
+        "NetPay": net
+    }
+
+def delete_employee():
+    name = input("Enter Employee Name to Delete: ")
+    if name in myEmployees:
+        del myEmployees[name]
+
+def modify_employee():
+    name = input("Enter Employee Name to Modify: ")
+    if name in myEmployees:
+        basic = float(input("Enter Basic Pay: "))
+        allowance = float(input("Enter Allowance: "))
+        deductions = float(input("Enter Deductions: "))
+        taxes = float(input("Enter Taxes: "))
+
+        gross, net = calculate_pay(basic, allowance, deductions, taxes)
+
+        myEmployees[name] = {
+            "BasicPay": basic,
+            "Allowance": allowance,
+            "Deductions": deductions,
+            "Taxes": taxes,
+            "GrossPay": gross,
+            "NetPay": net
+        }
+
+def display_employees():
+    for name, details in myEmployees.items():
+        print(name)
+        for key, value in details.items():
+            print(key, value)
+
+for i in range(5):
+    add_employee()
+
+while True:
+    print("1. Add Employee")
+    print("2. Delete Employee")
+    print("3. Modify Employee")
+    print("4. Display All Employees")
+    print("5. Exit")
+
+    choice = input("Enter choice: ")
+
+    if choice == "1":
+        add_employee()
+    elif choice == "2":
+        delete_employee()
+    elif choice == "3":
+        modify_employee()
+    elif choice == "4":
+        display_employees()
+    elif choice == "5":
+        break
