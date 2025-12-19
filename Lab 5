@@ -1,0 +1,33 @@
+import tkinter as tk
+
+class Queue:
+    def __init__(self): self.element=[]
+    def enqueue(self,v): self.element.append(v)
+    def dequeue(self): 
+        if self.element: self.element.pop(0)
+    def displayQueue(self): return self.element
+
+class Stack:
+    def __init__(self): self.element=[]
+    def push(self,v): self.element.append(v)
+    def pop(self):
+        if self.element: self.element.pop()
+    def displayStack(self): return self.element
+
+q=Queue()
+s=Stack()
+
+def q_enq(): q.enqueue(e.get()); out.set(q.displayQueue())
+def q_deq(): q.dequeue(); out.set(q.displayQueue())
+def s_push(): s.push(e.get()); out.set(s.displayStack())
+def s_pop(): s.pop(); out.set(s.displayStack())
+
+r=tk.Tk()
+e=tk.Entry(r); e.pack()
+tk.Button(r,text="Enqueue",command=q_enq).pack()
+tk.Button(r,text="Dequeue",command=q_deq).pack()
+tk.Button(r,text="Push",command=s_push).pack()
+tk.Button(r,text="Pop",command=s_pop).pack()
+out=tk.StringVar()
+tk.Label(r,textvariable=out).pack()
+r.mainloop()
